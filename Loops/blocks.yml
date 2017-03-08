@@ -1,0 +1,44 @@
+---
+#dfsdfsfdfasdfsadf - This is a comment line
+- name: "This will demonstrate the use of blocks"
+  hosts: all #This is a comment
+  tasks:
+   - block:
+      - name: "Install bunch of software utlities on CentOS"
+        yum: name={{ item }} state=installed
+        with_items:
+         - httpd
+         - memcached
+
+      - name: "Restart the apache server on CentOS"
+        service: name=httpd state=restarted
+
+     when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+     become: true
+
+     rescue: 
+       - debug: msg=" **** Centos **** Something went wrong while installing"
+         ignore_errors: True
+
+     always:
+       - debug: msg="Centos Do some cleanup stuffs here, as this always runs"
+
+   - block:
+      - name: "Install bunch of software utlities on Ubuntu"
+        apt: name={{ item }} state=installed
+        with_items:
+         - apache2 
+         - vim
+
+      - name: "Restart the apache server on Ubuntu"
+        service: name=apache2 state=restarted
+
+     when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+     become: true
+
+     rescue: 
+       - debug: msg=" **** Ubuntu **** Something went wrong while installing"
+         ignore_errors: True
+
+     always:
+       - debug: msg="Ubuntu Do some cleanup stuffs here, as this always runs"

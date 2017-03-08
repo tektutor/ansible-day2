@@ -1,0 +1,15 @@
+---
+- name:
+  hosts: all
+  vars:
+    contacts:
+      Jegan:
+         name: "Jeganathan"
+         mobile: "822-000-5626"
+      Sriram:
+         name: "Sriram"
+         mobile: "979-000-5121"
+  tasks:
+     - name: Let us print the with_dict items one at a time here
+       debug: msg="item.key => {{ item.key }} => {{ item.value.name }} => {{ item.value.mobile }}"
+       with_dict: "{{ contacts }}"

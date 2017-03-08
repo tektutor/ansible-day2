@@ -1,0 +1,2 @@
+[all]
+172.17.0.3 ansible_port=3000 ansible_host=localhost ansible_user=root

@@ -1,0 +1,9 @@
+---
+- name: Demo of with_nested loops
+  hosts: all
+  tasks:
+    - name: Let us print the nested loop items here on each machine
+      debug: 
+      with_nested:
+        - [ 'Ubuntu', 'RedHat', 'Suse' ]
+        - [ '14.04', '6.6', '10.1' ]

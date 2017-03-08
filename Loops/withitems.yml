@@ -1,0 +1,17 @@
+---
+
+- name: This is a demo of with_items loop
+  hosts: all
+  tasks:
+    - name: Demo1 - Print the items in with_items
+      debug: msg={{ item }}
+      with_items:
+        - RedHat
+        - Ubuntu
+        - Suse 
+
+    - name: Demo2 - Print the complex items in with_items 
+      debug: msg="{{ item.name }} => {{ item.mobile }}"
+      with_items:
+        - { name: 'Jegan', mobile: '822-000-5626' }
+        - { name: 'Nitesh', mobile: '979-000-5121' }

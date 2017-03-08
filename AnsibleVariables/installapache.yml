@@ -1,0 +1,15 @@
+---
+
+- name: "This playbook will install apache on Ubuntu and CentOS"
+  hosts: all
+  become: yes
+  
+  tasks:
+    
+    - name: "Install apache2 on Ubuntu box"
+      apt: name=apache2 state=latest update_cache=yes
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+    - name: "Install httpd on CentOS box"
+      yum: name=httpd state=latest update_cache=yes
+      when: ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
